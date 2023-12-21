@@ -10,7 +10,9 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.vt.avowsgardaortotest.R
 import com.vt.avowsgardaortotest.data.domain.model.Pokemon
 import com.vt.avowsgardaortotest.data.remote.network.Resource
 import com.vt.avowsgardaortotest.databinding.FragmentHomeBinding
@@ -80,7 +82,10 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
         }
         pokemonAdapter.submitList(pokemon)
         pokemonAdapter.onClickListener = {
-            it.url
+            val mBundle = Bundle()
+            mBundle.putString("pokemon_name", it.name)
+            println("click send bundle to detail: ${mBundle}")
+            findNavController().navigate(R.id.action_homeFragment_to_detailsFragment, mBundle)
         }
     }
 
