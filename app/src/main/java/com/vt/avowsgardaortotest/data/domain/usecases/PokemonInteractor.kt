@@ -15,4 +15,8 @@ class PokemonInteractor @Inject constructor(private val iPokemonRepository: IPok
     override fun getOfflinePokemons(): Flow<List<Pokemon>> {
         return iPokemonRepository.getOfflinePokemons()
     }
+
+    override fun searchPokemon(query: String): Flow<List<Pokemon>> {
+        return iPokemonRepository.searchPokemon(query)
+    }
 }

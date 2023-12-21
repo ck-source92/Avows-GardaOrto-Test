@@ -28,7 +28,7 @@ class PokemonRepositoryImpl @Inject constructor(
             }
 
             override fun shouldFetch(data: List<Pokemon>?): Boolean {
-                return true
+               return true
             }
 
             override suspend fun createCall(): Flow<ApiResponse<List<ResultsItem>>> {
@@ -44,6 +44,12 @@ class PokemonRepositoryImpl @Inject constructor(
 
     override fun getOfflinePokemons(): Flow<List<Pokemon>> {
         return localDataSource.getOfflinePokemon().map {
+            DataMapper.mapEntitiesToDomain(it)
+        }
+    }
+
+    override fun searchPokemon(query: String): Flow<List<Pokemon>> {
+        return localDataSource.searchPokemon(query).map {
             DataMapper.mapEntitiesToDomain(it)
         }
     }

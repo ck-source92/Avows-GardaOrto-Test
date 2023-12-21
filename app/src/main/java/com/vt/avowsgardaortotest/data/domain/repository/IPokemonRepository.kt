@@ -7,4 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface IPokemonRepository {
     fun getAllPokemon(): Flow<Resource<List<Pokemon>>>
     fun getOfflinePokemons(): Flow<List<Pokemon>>
+    fun searchPokemon(query: String): Flow<List<Pokemon>>
 }

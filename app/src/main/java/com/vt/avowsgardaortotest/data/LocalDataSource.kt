@@ -13,4 +13,7 @@ class LocalDataSource @Inject constructor(private val pokemonDao: PokemonDao) {
         pokemonDao.insertPokemon(pokemon)
 
     fun getOfflinePokemon(): Flow<List<PokemonEntity>> = pokemonDao.getOfflinePokemon()
+    fun searchPokemon(searchQuery: String): Flow<List<PokemonEntity>> {
+        return pokemonDao.searchPokemon(searchQuery)
+    }
 }

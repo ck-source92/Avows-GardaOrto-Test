@@ -12,8 +12,9 @@ import com.vt.avowsgardaortotest.databinding.ItemPokemonBinding
 
 class HomeAdapter : ListAdapter<Pokemon, HomeAdapter.ViewHolder>(DIFF_CALLBACK) {
     var onClickListener: ((Pokemon) -> Unit)? = null
-    var lastPosition = -1
+    //    var lastPosition = -1
     var selectedItem = -1
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
             ItemPokemonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
