@@ -1,4 +1,4 @@
-package com.vt.avowsgardaortotest.ui
+package com.vt.avowsgardaortotest.ui.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

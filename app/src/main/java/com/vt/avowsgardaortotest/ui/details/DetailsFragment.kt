@@ -1,7 +1,6 @@
-package com.vt.avowsgardaortotest.ui
+package com.vt.avowsgardaortotest.ui.details
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
