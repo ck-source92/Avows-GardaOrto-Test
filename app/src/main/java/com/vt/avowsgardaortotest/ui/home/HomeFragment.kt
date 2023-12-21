@@ -84,7 +84,6 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
         pokemonAdapter.onClickListener = {
             val mBundle = Bundle()
             mBundle.putString("pokemon_name", it.name)
-            println("click send bundle to detail: ${mBundle}")
             findNavController().navigate(R.id.action_homeFragment_to_detailsFragment, mBundle)
         }
     }

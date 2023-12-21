@@ -40,8 +40,10 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val receiveBundle = arguments?.getString("pokemon_name")
-        // TODO: Don't Forget Attach Pokemon Name
-        detailsViewModel.fetchPokemonDetails("bulbasaur")
+        if (receiveBundle != null) {
+            binding.namePokemon.text = receiveBundle.toString()
+            detailsViewModel.fetchPokemonDetails(receiveBundle)
+        }
         observerView()
     }
 
