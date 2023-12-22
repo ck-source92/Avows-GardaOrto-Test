@@ -3,9 +3,8 @@ package com.vt.avowsgardaortotest
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
 import com.vt.avowsgardaortotest.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,12 +26,17 @@ class MainActivity : AppCompatActivity() {
         if (navHostFragment != null) {
             navController = navHostFragment.navController
         }
-        val appBarConfiguration: AppBarConfiguration =
-            AppBarConfiguration.Builder(navController.graph).build()
-        NavigationUI.setupWithNavController(
-            activityMainBinding.toolbar,
-            navController,
-            appBarConfiguration
-        )
+//        val appBarConfiguration: AppBarConfiguration =
+//            AppBarConfiguration.Builder(navController.graph).build()
+//        NavigationUI.setupWithNavController(
+//            activityMainBinding.toolbar,
+//            navController,
+//            appBarConfiguration
+//        )
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main)
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }

@@ -4,7 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@id/splashScreenFragment">
-
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.vt.avowsgardaortotest.ui.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen">
+        <action
+            android:id="@+id/action_splashScreenFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.vt.avowsgardaortotest.ui.home.HomeFragment"
@@ -19,15 +27,6 @@
         android:name="com.vt.avowsgardaortotest.ui.details.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" />
-    <fragment
-        android:id="@+id/splashScreenFragment"
-        android:name="com.vt.avowsgardaortotest.ui.SplashScreenFragment"
-        android:label="fragment_splash_screen"
-        tools:layout="@layout/fragment_splash_screen">
-        <action
-            android:id="@+id/action_splashScreenFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
 
 
 </navigation>

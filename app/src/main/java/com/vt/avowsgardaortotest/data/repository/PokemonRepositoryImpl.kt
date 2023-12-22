@@ -29,10 +29,7 @@ class PokemonRepositoryImpl @Inject constructor(
                 }
             }
 
-            override fun shouldFetch(data: List<Pokemon>?): Boolean {
-                return true
-            }
-
+            override fun shouldFetch(data: List<Pokemon>?): Boolean = true
             override suspend fun createCall(): Flow<ApiResponse<List<ResultsItem>>> {
                 return remoteDataSource.getAllPokemon()
             }

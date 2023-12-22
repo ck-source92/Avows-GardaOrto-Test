@@ -13,7 +13,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vt.avowsgardaortotest.R
-import com.vt.avowsgardaortotest.data.domain.model.Pokemon
 import com.vt.avowsgardaortotest.data.remote.network.Resource
 import com.vt.avowsgardaortotest.databinding.FragmentHomeBinding
 import com.vt.avowsgardaortotest.utils.NetworkError
@@ -25,7 +24,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<HomeViewModel>()
-    private val pokemonAdapter by lazy { HomeAdapter() }
+    private val pokemonAdapter by lazy { ListPokemonAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -36,8 +35,14 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.searchPokemon.setOnQueryTextListener(this@HomeFragment)
+        setupRecyclerView()
+        pokemonAdapter.onClickListener = {
+            val mBundle = Bundle()
+            mBundle.putString("pokemon_name", it.name)
+            findNavController().navigate(R.id.action_homeFragment_to_detailsFragment, mBundle)
+        }
         observerView()
+        binding.searchPokemon.setOnQueryTextListener(this@HomeFragment)
     }
 
     private fun observerView() {
@@ -50,7 +55,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
 
                     is Resource.Success -> {
                         binding.progressBar.isVisible = false
-                        setupRecyclerView(it.data)
+                        pokemonAdapter.submitData(it.data)
                     }
 
                     is Resource.Error -> {
@@ -68,24 +73,15 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
             }
         }
         viewModel.pokemonOffline.observe(viewLifecycleOwner) {
-            Log.d("TEST", it.toString())
-            setupRecyclerView(it)
+            pokemonAdapter.submitData(it)
         }
     }
 
-    private fun setupRecyclerView(pokemon: List<Pokemon>?) {
-        with(binding) {
-            listPokemon.layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            listPokemon.setHasFixedSize(true)
-            listPokemon.adapter = pokemonAdapter
-        }
-        pokemonAdapter.submitList(pokemon)
-        pokemonAdapter.onClickListener = {
-            val mBundle = Bundle()
-            mBundle.putString("pokemon_name", it.name)
-            findNavController().navigate(R.id.action_homeFragment_to_detailsFragment, mBundle)
-        }
+    private fun setupRecyclerView() {
+        binding.listPokemon.layoutManager =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        binding.listPokemon.setHasFixedSize(true)
+        binding.listPokemon.adapter = pokemonAdapter
     }
 
     private fun searchDatabase(query: String) {
@@ -93,13 +89,14 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
 
         viewModel.searchPokemon(searchQuery).observe(viewLifecycleOwner) { list ->
             list.let {
-                pokemonAdapter.submitList(it)
+                pokemonAdapter.submitData(it)
             }
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
 
@@ -112,6 +109,10 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
             searchDatabase(newText)
         }
         return true
+    }
+
+    companion object {
+        val homeFragment = HomeFragment::class.java.simpleName
     }
 
 }

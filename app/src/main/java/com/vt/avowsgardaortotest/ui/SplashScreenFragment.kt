@@ -1,5 +1,6 @@
 package com.vt.avowsgardaortotest.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import com.vt.avowsgardaortotest.R
 import com.vt.avowsgardaortotest.databinding.FragmentSplashScreenBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+@SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class SplashScreenFragment : Fragment() {
 
@@ -27,5 +29,10 @@ class SplashScreenFragment : Fragment() {
         binding.startBtn.setOnClickListener {
             findNavController().navigate(R.id.action_splashScreenFragment_to_homeFragment)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

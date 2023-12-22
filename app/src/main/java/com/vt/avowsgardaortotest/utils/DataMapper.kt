@@ -10,7 +10,7 @@ object DataMapper {
         input.map {
             val pokemon = PokemonEntity(
                 url = it.url,
-                name = it.name, id = null
+                name = it.name
             )
             pokemonEntity.add(pokemon)
         }
@@ -22,7 +22,6 @@ object DataMapper {
             Pokemon(
                 url = it.url,
                 name = it.name,
-                id = it.id!!
             )
         }
 }
